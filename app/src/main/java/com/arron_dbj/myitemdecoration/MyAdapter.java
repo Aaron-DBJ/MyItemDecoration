@@ -52,7 +52,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         int resourceId = getRandomImage(10);
         holder.cityName.setText(mList.get(position));
         holder.cityImage.setImageResource(resourceId);
-        holder.cityIntro.setText("城市城市城市城市城市城市城市城市城市城市");
+        holder.cityIntro.setText("城市城市城市城市城市城市城市城市城市城市" + position);
 
     }
 

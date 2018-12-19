@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -26,6 +27,7 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(60);
+        textPaint.setTypeface(Typeface.SANS_SERIF);
         textPaint.setFakeBoldText(true);
         this.onProvinceListener = onProvinceListener;
     }
@@ -64,13 +66,15 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
                 int provinceRight = child.getRight() + RIGHT;
                 if ( i != 0){
                     if (province.isFirstCityInProvince()){
+                        textPaint.setColor(Color.parseColor("#dddddd"));
                         int top = child.getTop() - headerHeight;
                         int bottom = child.getTop() ;
 
-                        drawHeaderBitmap(province, c, provinceLeft, top, provinceRight, bottom);
+                        drawHeader(province, c, provinceLeft, top, provinceRight, bottom);
                     }
                 }else {
                     int top = parent.getPaddingTop();
+                    textPaint.setColor(Color.BLACK);
                     if (province.isLastCityInProvince()){
                         int supposedTop = child.getBottom() - headerHeight;
                         if (supposedTop < top){
@@ -79,7 +83,7 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
                     }
                     int bottom = top + headerHeight ;
 
-                    drawHeaderBitmap(province, c, provinceLeft, top, provinceRight, bottom);
+                    drawHeader(province, c, provinceLeft, top, provinceRight, bottom);
                 }
             }
         }
@@ -88,13 +92,13 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
 
 
 
-    private void drawHeaderBitmap(Province province, Canvas canvas, int left, int top, int right, int bottom){
+    private void drawHeader(Province province, Canvas canvas, int left, int top, int right, int bottom){
         int color = Color.parseColor(province.getProvinceBackground());
         mPaint.setColor(color);
         canvas.drawRect(left, top, right, bottom, mPaint);
         Bitmap bitmap = province.getProvinceBitmap();
         canvas.drawBitmap(bitmap, left, top, mPaint);
-        canvas.drawText(province.getProvinceName(), left + 400, top + 120, textPaint);
+        canvas.drawText(province.getProvinceName(), left + 500, top + 120, textPaint);
     }
 
 

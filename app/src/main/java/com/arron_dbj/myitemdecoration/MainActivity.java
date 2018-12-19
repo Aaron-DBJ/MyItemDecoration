@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         MyAdapter adapter = new MyAdapter(mList, this);
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
+
         StickyHeaderDecoration stickyHeader = new StickyHeaderDecoration(new OnProvinceListener() {
             @Override
             public Province getProvinceInfo(int position) {
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 return province;
             }
         });
+
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
