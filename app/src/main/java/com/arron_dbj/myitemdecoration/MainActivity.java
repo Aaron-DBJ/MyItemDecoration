@@ -15,7 +15,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private List<String> mList;
     private RecyclerView recyclerView;
-
+    private List<Integer> imageList;
+    private List<String> titleList;
     private String[] cities = {
             "成都", "绵阳", "德阳", "广元", "自贡", "宜宾", "内江", "都江堰", "峨眉山", "简阳", "达州", "广安",
             "开封", "洛阳", "郑州", "安阳", "南阳", "焦作", "许昌", "周口", "三门峡", "驻马店", "鹤壁", "新乡",
@@ -26,17 +27,33 @@ public class MainActivity extends AppCompatActivity {
     private String[] provinces = {
             "四川省", "河南省", "江苏省", "山东省", "广东省"
     };
+
+    private String[] titles = {"航母舰队", "桑达尔", "熊猫", "猫咪", "水珠"};
+
     private String colors[] = {"#EEE685", "#3CB371", "#87CEEB", "#40E0D0", "#EE7942"};
+    private void initImageTitles(){
+        imageList = new ArrayList<>();
+        titleList = new ArrayList<>();
+        for (int i = 0; i < 5; i++){
+            String imageName = "a" + (i+1);
+            int imageId = this.getResources().getIdentifier(imageName, "drawable",
+                    "com.arron_dbj.myitemdecoration");
+            imageList.add(imageId);
+            titleList.add(titles[i]);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initProvince();
+        initImageTitles();
         recyclerView = findViewById(R.id.recycler_view);
         MyAdapter adapter = new MyAdapter(mList, this);
+        HeaderFooterAdapter hfAdapter = new HeaderFooterAdapter(mList, this,imageList, titleList);
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
-
+        RecyclerView.ItemDecoration itemDecoration = new HeaderFooterDecoration(mList);
         StickyHeaderDecoration stickyHeader = new StickyHeaderDecoration(new OnProvinceListener() {
             @Override
             public Province getProvinceInfo(int position) {
@@ -51,18 +68,20 @@ public class MainActivity extends AppCompatActivity {
                 return province;
             }
         });
-
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(MainActivity.this, mList.get(position), Toast.LENGTH_SHORT).show();
             }
         });
-        recyclerView.addItemDecoration(stickyHeader);
-        recyclerView.setAdapter(adapter);
-
-
+        DividerDecoration decoration = new DividerDecoration();
+        DividerAdapter dividerAdapter = new DividerAdapter(mList, this);
+        recyclerView.addItemDecoration(itemDecoration);
+        recyclerView.setAdapter(hfAdapter);
     }
+
+
+
     private Bitmap getProvinceBitmap(int provinceId){
 
         String bitmapName = "subject" + (provinceId + 1);

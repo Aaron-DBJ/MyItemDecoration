@@ -12,17 +12,20 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Random;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<String> mList;
     private Context context;
     private OnItemClickListener onItemClickListener;
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
     }
+
     public MyAdapter(List<String> list, Context context){
         mList = list;
         this.context = context;
     }
+
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView cityImage;
         public TextView cityName, cityIntro;
@@ -42,18 +45,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card_view, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        int resourceId = getRandomImage(10);
-        holder.cityName.setText(mList.get(position));
-        holder.cityImage.setImageResource(resourceId);
-        holder.cityIntro.setText("城市城市城市城市城市城市城市城市城市城市" + position);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
 
+            int resourceId = getRandomImage(10);
+            ((ViewHolder)holder).cityName.setText(mList.get(position));
+            ((ViewHolder)holder).cityImage.setImageResource(resourceId);
+            ((ViewHolder)holder).cityIntro.setText("城市城市城市城市城市城市城市城市城市城市" + position);
     }
 
 
