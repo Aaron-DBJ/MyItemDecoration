@@ -29,8 +29,10 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView cityImage;
         public TextView cityName, cityIntro;
+        TextView textView;
         public ViewHolder(View itemView) {
             super(itemView);
+            textView = itemView.findViewById(R.id.tv_item);
             cityName = itemView.findViewById(R.id.city_name);
             cityImage = itemView.findViewById(R.id.city_image);
             cityIntro = itemView.findViewById(R.id.city_intro);
@@ -52,7 +54,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-
+        ((ViewHolder) holder).textView.setText(mList.get(position));
             int resourceId = getRandomImage(10);
             ((ViewHolder)holder).cityName.setText(mList.get(position));
             ((ViewHolder)holder).cityImage.setImageResource(resourceId);

@@ -15,6 +15,7 @@ import java.util.List;
 public class StickyHeaderActivity extends AppCompatActivity {
     private List<String> mList;
     private RecyclerView recyclerView;
+    private Province province;
     private String[] cities = {
             "成都", "绵阳", "德阳", "广元", "自贡", "宜宾", "内江", "都江堰", "峨眉山", "简阳", "达州", "广安",
             "开封", "洛阳", "郑州", "安阳", "南阳", "焦作", "许昌", "周口", "三门峡", "驻马店", "鹤壁", "新乡",
@@ -45,7 +46,7 @@ public class StickyHeaderActivity extends AppCompatActivity {
                 int provinceId = position / 12;
                 int cityPositionInProvince = position % 12;
                 Bitmap bitmap = getProvinceBitmap(provinceId);
-                Province province = new Province(provinceId, provinces[provinceId]);
+                province = new Province(provinceId, provinces[provinceId]);
                 province.setProvinceLength(12);
                 province.setCityPosition(cityPositionInProvince);
                 province.setProvinceBitmap(bitmap);

@@ -74,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, mList.get(position), Toast.LENGTH_SHORT).show();
             }
         });
-        DividerDecoration decoration = new DividerDecoration();
-        DividerAdapter dividerAdapter = new DividerAdapter(mList, this);
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setAdapter(hfAdapter);
     }

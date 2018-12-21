@@ -1,11 +1,13 @@
 package com.arron_dbj.myitemdecoration;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,14 +27,14 @@ public class HeaderFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int FOOTER = 2;
     private int headerCount = 1;
     private int footerCount = 1;
-//    private OnItemClickListener onItemClickListener;
+    private OnItemClickListener onItemClickListener;
     private List<Integer> imageList;
     private List<String> titleList;
 
 
-//    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
-//        this.onItemClickListener = onItemClickListener;
-//    }
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }
     public HeaderFooterAdapter(List<String> list, Context context,List<Integer> imageList, List<String> titleList){
         mList = list;
         this.context = context;
@@ -55,22 +57,22 @@ public class HeaderFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-//        ImageView cityImage;
-//        TextView cityName, cityIntro;
+        ImageView cityImage;
+        TextView cityName, cityIntro;
         TextView textView;
         public ViewHolder(View itemView) {
             super(itemView);
-//            cityName = itemView.findViewById(R.id.city_name);
-//            cityImage = itemView.findViewById(R.id.city_image);
-//            cityIntro = itemView.findViewById(R.id.city_intro);
-//            itemView.setOnClickListener(this);
+            cityName = itemView.findViewById(R.id.city_name);
+            cityImage = itemView.findViewById(R.id.city_image);
+            cityIntro = itemView.findViewById(R.id.city_intro);
+            itemView.setOnClickListener(this);
             textView = itemView.findViewById(R.id.tv_item);
         }
 
 
         @Override
         public void onClick(View view) {
-//            onItemClickListener.onItemClick(view, getAdapterPosition());
+            onItemClickListener.onItemClick(view, getAdapterPosition());
         }
     }
     @NonNull
@@ -104,18 +106,17 @@ public class HeaderFooterAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     .setOnBannerListener(new OnBannerListener() {
                         @Override
                         public void OnBannerClick(int position) {
-//                            Intent intent = new Intent(context, StickyHeaderActivity.class);
-//                            context.startActivity(intent);
+                            Intent intent = new Intent(context, StickyHeaderActivity.class);
+                            context.startActivity(intent);
                             Toast.makeText(context, "第"+ position + "项", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .start();
         }else if (holder instanceof ViewHolder){
-            ((ViewHolder) holder).textView.setText(mList.get(position - headerCount));
-//            ((ViewHolder) holder).cityName.setText(mList.get(position - headerCount));
-//            ((ViewHolder) holder).cityIntro.setText("城市城市城市城市城市城市城市城市城市" + position);
-//            int imageId = getRandomImage(10);
-//            ((ViewHolder) holder).cityImage.setImageResource(imageId);
+            ((ViewHolder) holder).cityName.setText(mList.get(position - headerCount));
+            ((ViewHolder) holder).cityIntro.setText("城市城市城市城市城市城市城市城市城市" + position);
+            int imageId = getRandomImage(10);
+            ((ViewHolder) holder).cityImage.setImageResource(imageId);
         }else if (holder instanceof FooterViewHolder){
 
         }
